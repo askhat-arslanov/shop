@@ -6,7 +6,11 @@ import { CartMutations } from '@/constants/store/cart'
 export const mutations: MutationTree<State> = {
   [CartMutations.ADD_TO_CART](state, item): void {
     const itemAdded = state.itemList.find(({ id }) => item.id === id)
-    itemAdded ? itemAdded.inCart++ : state.itemList.push({ ...item, inCart: 1 })
+    if (itemAdded) {
+      if (itemAdded.inCart < item.count) itemAdded.inCart++
+    } else {
+      state.itemList.push({ ...item, inCart: 1 })
+    }
   },
 
   [CartMutations.REMOVE_FROM_CART](state, id): void {
