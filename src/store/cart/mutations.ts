@@ -15,7 +15,7 @@ export const mutations: MutationTree<State> = {
 
   [CartMutations.SET_IN_CART](state, { id, inCart }): void {
     const item = state.itemList.find(item => item.id === id)
-    if (item && inCart >= 0) {
+    if (item && inCart <= item.count && inCart >= 0) {
       item.inCart = inCart
     }
   }
